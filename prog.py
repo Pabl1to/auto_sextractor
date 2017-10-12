@@ -195,7 +195,7 @@ def running(direc,img,hparam,wim,zps,nbase):
 	os.system("mkdir -p results")
     	os.chdir("results")
     	for i in range(len(img)):
-        	os.system("cp ../"+direc[1]+"/pass* .; mv pass_2.sex pass2.sex") #borrar despues
+        	os.system("cp ../"+direc[1]+"/pass* .") 
         	os.system("cp ../"+direc[1]+"/psf* . ")
         	if len(wim) != 0:
             		if wim[i] !=  "NOIMAGE":
@@ -245,7 +245,7 @@ def assoc(direc,img,hparam,wim,zps,nbase):
 		os.chdir("Assoc")
 		for i in range(len(img)):
 			if i != base:
-				os.system("cp ../conf/*c*a* . ; mv conf_a.sex conf_assoc.sex") #borrar despues
+				os.system("cp ../conf/*assoc* . ") 
                 		if len(wim) != 0:
                         		if wim[i] !=  "NOIMAGE":
                                			os.system("sed 's/WNONE/MAP_WEIGHT/' conf_assoc.sex > tc.sex; mv tc.sex conf_assoc.sex")
