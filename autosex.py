@@ -24,8 +24,8 @@ else:
 			hparam = header_param(rimg)
 			zps = sort_zp(rimg,zps,x)
 			os.chdir("..")
-			running(direcs,rimg,hparam,wimg,zps,"Sloan_r",x)	
-		
+		#	running(direcs,rimg,hparam,wimg,zps,"Sloan_r",x)	
+			assoc(direcs,rimg,hparam,wimg,zps,"Sloan_r")
 	else: print "I can't run... bye"	
 		
 			

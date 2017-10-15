@@ -98,7 +98,7 @@ MEMORY_BUFSIZE   1024           # number of lines in buffer
  
 #------------------------------- ASSOCiation ---------------------------------
 
-ASSOC_NAME       ../results/BASECAT      # name of the ASCII file to ASSOCiate
+ASSOC_NAME       ../Results/BASECAT      # name of the ASCII file to ASSOCiate
 ASSOC_DATA       0          # columns of the data to replicate (0=all)
 ASSOC_PARAMS     3,4,5          # columns of xpos,ypos[,mag]
 ASSOCCOORD_TYPE  PIXEL          # ASSOC coordinates: PIXEL or WORLD
@@ -124,7 +124,7 @@ INTERP_TYPE      ALL            # Interpolation type: NONE, VAR_ONLY or ALL
 
 #--------------------------- Experimental Stuff -----------------------------
 
-PSF_NAME       	 ../results/NPSF.psf           # File containing the PSF model
+PSF_NAME       	 ../Results/NPSF.psf           # File containing the PSF model
 PSF_NMAX         1              # Max.number of PSFs fitted simultaneously
 PATTERN_TYPE     RINGS-HARMONIC # can RINGS-QUADPOLE, RINGS-OCTOPOLE,
                                 # RINGS-HARMONICS or GAUSS-LAGUERRE
