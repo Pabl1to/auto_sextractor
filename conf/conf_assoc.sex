@@ -99,7 +99,7 @@ MEMORY_BUFSIZE   1024           # number of lines in buffer
 #------------------------------- ASSOCiation ---------------------------------
 
 ASSOC_NAME       ../Results/BASECAT      # name of the ASCII file to ASSOCiate
-ASSOC_DATA       0          # columns of the data to replicate (0=all)
+ASSOC_DATA       NONE          # columns of the data to replicate (0=all)
 ASSOC_PARAMS     3,4,5          # columns of xpos,ypos[,mag]
 ASSOCCOORD_TYPE  PIXEL          # ASSOC coordinates: PIXEL or WORLD
 ASSOC_RADIUS     2.0            # cross-matching radius (pixels)

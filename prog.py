@@ -51,9 +51,12 @@ def inspec(direc,sub,*p):
 			return False
 	else: return True
 
-def directories():
+def directories(direc):
 	import os
 	dconf = os.getenv("AUTOSEXPATH")+"/conf"	
+        f = os.listdir(direc)
+        print "*"*10 + "files in the main directory "+"*"*10
+        for i in f: print i
 	while True:
 		dimages = raw_input("Insert images directory: ")
 		if in_main(dimages) == True:
@@ -231,11 +234,11 @@ def running(direc,img,hparam,wim,zps,nbase,x):
 		os.system("sed 's/TEST/"+img[i][:-5]+"/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex") 
 		os.system("sed 's/ZP/"+str(2.5*np.log10(hparam[0][i])+zps[0][i])+"/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex") 
 		os.system("sed 's/NGAIN/"+str(hparam[1][i])+"/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex") 
-		os.system("sex -c pass1.sex ../"+direc[0]+"/"+img[i])
-		os.system("psfex -c psfconf.c pass1.cat")
-		os.system("mv pass1.psf "+img[i][:-5]+".psf")
 
 		if img[i][x[i][0]:x[i][1]] == nbase:	
+		        os.system("sex -c pass1.sex ../"+direc[0]+"/"+img[i])
+		        os.system("psfex -c psfconf.c pass1.cat")
+		        os.system("mv pass1.psf "+img[i][:-5]+".psf")
 			os.system("sed 's/NPSF/"+img[i][:-5]+"/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex")
 			os.system("sex -c pass2.sex ../"+direc[0]+"/"+img[i])
 		else: print "este no"
@@ -281,7 +284,7 @@ def assoc(direc,img,hparam,wim,zps,nbase):
 			os.system("sed 's/ZP/"+str(2.5*np.log10(hparam[0][i])+zps[0][i])+"/' conf_assoc.sex > t2.sex; mv t2.sex conf_assoc.sex")
 			os.system("sed 's/NGAIN/"+str(hparam[1][i])+"/' conf_assoc.sex > t2.sex; mv t2.sex conf_assoc.sex")
 			os.system("sed 's/NPSF/"+img[i][:-5]+"/' conf_assoc.sex > t2.sex; mv t2.sex conf_assoc.sex")
-			os.system("sex1 -c conf_assoc.sex ../"+direc[0]+"/"+img[base]+", ../"+direc[0]+"/"+img[i])
+			os.system("sex -c conf_assoc.sex ../"+direc[0]+"/"+img[base]+",../"+direc[0]+"/"+img[i])
 	return True
 	
 #def match(img,nzp):

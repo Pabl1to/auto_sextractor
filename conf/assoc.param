@@ -1,3 +1,18 @@
+ALPHA_J2000              Right ascension of barycenter (J2000)                     [deg]
+DELTA_J2000              Declination of barycenter (J2000)                         [deg]
+MAG_AUTO                # Kron-like elliptical aperture magnitude                   [mag]
+MAGERR_AUTO             # RMS error for AUTO magnitude                              [mag]
+MAG_PSF                  Magnitude from PSF-fitting                                [mag]
+MAGERR_PSF               RMS magnitude error from PSF-fitting                      [mag]
+MAG_PETRO                Petrosian-like elliptical aperture magnitude              [mag]
+MAGERR_PETRO             RMS error for PETROsian magnitude                         [mag]
+#CLASS_STAR               S/G classifier output                                    
+#FLUX_AUTO                Flux within a Kron-like elliptical aperture               [count]
+#FLUXERR_AUTO             RMS error for AUTO flux                                   [count]
+#FLUX_PSF                 Flux from PSF-fitting                                     [count]
+#FLUXERR_PSF              RMS flux error for PSF-fitting                            [count]
+#FLUX_PETRO               Flux within a Petrosian-like elliptical aperture          [count]
+#FLUXERR_PETRO            RMS error for PETROsian flux                              [count]
 #NUMBER                   Running object number                                    
 #EXT_NUMBER               FITS extension number                                    
 #FLUX_ISO                 Isophotal flux                                            [count]
@@ -8,24 +23,12 @@
 #FLUXERR_ISOCOR           RMS error for corrected isophotal flux                    [count]
 #MAG_ISOCOR               Corrected isophotal magnitude                             [mag]
 #MAGERR_ISOCOR            RMS error for corrected isophotal magnitude               [mag]
-ALPHA_J2000              Right ascension of barycenter (J2000)                     [deg]
-DELTA_J2000              Declination of barycenter (J2000)                         [deg]
-#FLUX_AUTO                Flux within a Kron-like elliptical aperture               [count]
-#FLUXERR_AUTO             RMS error for AUTO flux                                   [count]
-FLUX_APER                #Flux vector within fixed circular aperture(s)             [count]
-FLUXERR_APER             #RMS error vector for aperture flux(es)                    [count]
+#FLUX_APER                #Flux vector within fixed circular aperture(s)             [count]
+#FLUXERR_APER             #RMS error vector for aperture flux(es)                    [count]
 #MAG_APER                 #Fixed aperture magnitude vector                           [mag]
 #MAGERR_APER              #RMS error vector for fixed aperture mag.                  [mag]
 #X_IMAGE                  Object position along x                                   [pixel]
 #Y_IMAGE                  Object position along y                                   [pixel]
-#MAG_PSF                  Magnitude from PSF-fitting                                [mag]
-#MAGERR_PSF               RMS magnitude error from PSF-fitting                      [mag]
-#MAG_AUTO                # Kron-like elliptical aperture magnitude                   [mag]
-#MAGERR_AUTO             # RMS error for AUTO magnitude                              [mag]
-#FLUX_PETRO               Flux within a Petrosian-like elliptical aperture          [count]
-#FLUXERR_PETRO            RMS error for PETROsian flux                              [count]
-#MAG_PETRO                Petrosian-like elliptical aperture magnitude              [mag]
-#MAGERR_PETRO             RMS error for PETROsian magnitude                         [mag]
 #FLUX_BEST                Best of FLUX_AUTO and FLUX_ISOCOR                         [count]
 #FLUXERR_BEST             RMS error for BEST flux                                   [count]
 #MAG_BEST                 Best of MAG_AUTO and MAG_ISOCOR                           [mag]
@@ -200,7 +203,6 @@ FLUXERR_APER             #RMS error vector for aperture flux(es)                
 #POLAR_WORLD              (A_WORLD^2 - B_WORLD^2)/(A_WORLD^2 + B_WORLD^2)          
 #POLARWIN_IMAGE           (AWIN^2 - BWIN^2)/(AWIN^2 + BWIN^2)                      
 #POLARWIN_WORLD           (AWIN^2 - BWIN^2)/(AWIN^2 + BWIN^2)                      
-#CLASS_STAR               S/G classifier output                                    
 #VIGNET                   Pixel data around detection                               [count]
 #VIGNET_SHIFT             Pixel data around detection, corrected for shift          [count]
 #VECTOR_ASSOC            # ASSOCiated parameter vector                              
@@ -223,8 +225,6 @@ FLUXERR_APER             #RMS error vector for aperture flux(es)                
 #DELTAPSF_J2000           Declination of the fitted PSF (J2000)                     [deg]
 #ALPHAPSF_B1950           Right ascension of the fitted PSF (B1950)                 [deg]
 #DELTAPSF_B1950           Declination of the fitted PSF (B1950)                     [deg]
-#FLUX_PSF                 Flux from PSF-fitting                                     [count]
-#FLUXERR_PSF              RMS flux error for PSF-fitting                            [count]
 #MAG_PSF                  Magnitude from PSF-fitting                                [mag]
 #MAGERR_PSF               RMS magnitude error from PSF-fitting                      [mag]
 #NITER_PSF                Number of iterations for PSF-fitting                     

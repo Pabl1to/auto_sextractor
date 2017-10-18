@@ -3,7 +3,7 @@ from prog import *
 from numpy import loadtxt
 
 mdirec = main_directory()
-direcs = directories()
+direcs = directories(mdirec)
 img = rimage(direcs[0])
 xg = []
 if len(img) == 0: pass
@@ -24,8 +24,8 @@ else:
 			hparam = header_param(rimg)
 			zps = sort_zp(rimg,zps,x)
 			os.chdir("..")
-		#	running(direcs,rimg,hparam,wimg,zps,"Sloan_r",x)	
-			assoc(direcs,rimg,hparam,wimg,zps,"Sloan_r")
+			running(direcs,rimg,hparam,wimg,zps,"Sloan_i",x)	
+#			assoc(direcs,rimg,hparam,wimg,zps,"Sloan_i")
 	else: print "I can't run... bye"	
 		
 			
