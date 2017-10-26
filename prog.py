@@ -157,11 +157,11 @@ def rel_img_wmap(img,wim):
 	return wsort 
 def header_param(img):
 	import pyfits as pf
-	t,gain = [],[]
+	t,gain,seeng = [],[],[]
 	for i in range(len(img)):
 		im = pf.open(img[i])
-		t,gain = t + [im[0].header["EXPTIME"]], gain + [im[0].header["GAIN"]]
-	return [t,gain]
+		t,gain,seeng = t + [im[0].header["EXPTIME"]], gain + [im[0].header["GAIN"]], seeng + [im[0].header["FWHM"]]
+	return [t,gain,seeng]
 def f_in_img(nimg,nfilter):
 	a = "p"
 	for i in range(len(nimg)-len(nfilter)):
@@ -233,15 +233,21 @@ def running(direc,img,hparam,wim,zps,nbase,x):
 		os.system("sed 's/NGAIN/"+str(hparam[1][i])+"/' pass1.sex > tpass1.sex; mv tpass1.sex pass1.sex") 
 		os.system("sed 's/TEST/"+img[i][:-5]+"/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex") 
 		os.system("sed 's/ZP/"+str(2.5*np.log10(hparam[0][i])+zps[0][i])+"/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex") 
-		os.system("sed 's/NGAIN/"+str(hparam[1][i])+"/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex") 
+		os.system("sed 's/NGAIN/"+str(hparam[1][i])+"/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex")
+		os.system("sed 's/NFWHM/"+str(hparam[2][i])+"/' pass1.sex > tpass1.sex; mv tpass1.sex pass1.sex")
+		os.system("sed 's/NFWHM/"+str(hparam[2][i])+"/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex")
+		os.system("sed 's/APERPHOT/"+str(3*float(hparam[2][i]))+"/' pass1.sex > tpass1.sex; mv tpass1.sex pass1.sex")
+		os.system("sed 's/APERPHOT/"+str(3*float(hparam[2][i]))+"/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex") 
+ 
 
-		if img[i][x[i][0]:x[i][1]] == nbase:	
-		        os.system("sex -c pass1.sex ../"+direc[0]+"/"+img[i])
-		        os.system("psfex -c psfconf.c pass1.cat")
-		        os.system("mv pass1.psf "+img[i][:-5]+".psf")
-			os.system("sed 's/NPSF/"+img[i][:-5]+"/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex")
-			os.system("sex -c pass2.sex ../"+direc[0]+"/"+img[i])
-		else: print "este no"
+		
+	
+		        
+		os.system("sex -c pass1.sex ../"+direc[0]+"/"+img[i])
+	        os.system("psfex -c psfconf.c pass1.cat")
+	        os.system("mv pass1.psf "+img[i][:-5]+".psf")	
+		os.system("sed 's/NPSF/"+img[i][:-5]+"/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex")
+		os.system("sex -c pass2.sex ../"+direc[0]+"/"+img[i])
 	os.chdir("..")
 
 def nbase(nzps,nbase):
@@ -283,7 +289,10 @@ def assoc(direc,img,hparam,wim,zps,nbase):
 			os.system("sed 's/NZP/"+zps[1][i]+"/' conf_assoc.sex > t2.sex; mv t2.sex conf_assoc.sex")
 			os.system("sed 's/ZP/"+str(2.5*np.log10(hparam[0][i])+zps[0][i])+"/' conf_assoc.sex > t2.sex; mv t2.sex conf_assoc.sex")
 			os.system("sed 's/NGAIN/"+str(hparam[1][i])+"/' conf_assoc.sex > t2.sex; mv t2.sex conf_assoc.sex")
+			os.system("sed 's/NFWHM/"+str(hparam[2][i])+"/' conf_assoc.sex > t2.sex; mv t2.sex conf_assoc.sex")
+			os.system("sed 's/APERPHOT/"+str(3*float(hparam[2][i]))+"/' conf_assoc.sex > t2.sex; mv t2.sex conf_assoc.sex")
 			os.system("sed 's/NPSF/"+img[i][:-5]+"/' conf_assoc.sex > t2.sex; mv t2.sex conf_assoc.sex")
+			
 			os.system("sex -c conf_assoc.sex ../"+direc[0]+"/"+img[base]+",../"+direc[0]+"/"+img[i])
 	return True
 	
