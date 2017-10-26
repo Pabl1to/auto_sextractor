@@ -244,6 +244,7 @@ def running(direc,img,hparam,wim,zps,nbase,x):
 	
 		        
 		os.system("sex -c pass1.sex ../"+direc[0]+"/"+img[i])
+		os.system("sed 's/TEST/"+img[i][:-5]+"/' psfconf.c > tpsf.c; mv tpsf.c psfconf.c") 
 	        os.system("psfex -c psfconf.c pass1.cat")
 	        os.system("mv pass1.psf "+img[i][:-5]+".psf")	
 		os.system("sed 's/NPSF/"+img[i][:-5]+"/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex")
@@ -292,8 +293,7 @@ def assoc(direc,img,hparam,wim,zps,nbase):
 			os.system("sed 's/FWHMARC/"+str(hparam[2][i])+"/' conf_assoc.sex > t2.sex; mv t2.sex conf_assoc.sex")
 			os.system("sed 's/APERPHOT/"+str(3*float(hparam[3][i]))+"/' conf_assoc.sex > t2.sex; mv t2.sex conf_assoc.sex")
 			os.system("sed 's/NPSF/"+img[i][:-5]+"/' conf_assoc.sex > t2.sex; mv t2.sex conf_assoc.sex")
-			
-			os.system("sex -c conf_assoc.sex ../"+direc[0]+"/"+img[base]+",../"+direc[0]+"/"+img[i])
+			if i != x: os.system("sex -c conf_assoc.sex ../"+direc[0]+"/"+img[base]+",../"+direc[0]+"/"+img[i])
 	return True
 	
 #def match(img,nzp):
