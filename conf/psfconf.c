@@ -4,7 +4,7 @@
  
 #-------------------------------- PSF model ----------------------------------
  
-BASIS_TYPE      PIXEL_AUTO      # NONE, PIXEL, GAUSS-LAGUERRE or FILE
+BASIS_TYPE      GAUSS-LAGUERRE      # NONE, PIXEL, GAUSS-LAGUERRE or FILE
 BASIS_NUMBER    20              # Basis number or parameter
 BASIS_NAME      test.fits      # Basis filename (FITS data-cube)
 BASIS_SCALE     1.0             # Gauss-Laguerre beta parameter
@@ -14,7 +14,7 @@ NEWBASIS_NUMBER 8               # Number of new basis vectors
 PSF_SAMPLING    0.0             # Sampling step in pixel units (0.0 = auto)
 PSF_PIXELSIZE   1.0             # Effective pixel size in pixel step units
 PSF_ACCURACY    0.01            # Accuracy to expect from PSF "pixel" values
-PSF_SIZE        25,25           # Image size of the PSF model
+PSF_SIZE        45,45           # Image size of the PSF model
 PSF_RECENTER    N               # Allow recentering of PSF-candidates Y/N ?
 MEF_TYPE        INDEPENDENT     # INDEPENDENT or COMMON
  
@@ -37,10 +37,10 @@ STABILITY_TYPE  EXPOSURE        # EXPOSURE or SEQUENCE
  
 SAMPLE_AUTOSELECT  Y            # Automatically select the FWHM (Y/N) ?
 SAMPLEVAR_TYPE     SEEING       # File-to-file PSF variability: NONE or SEEING
-SAMPLE_FWHMRANGE   2.0,10.0     # Allowed FWHM range
-SAMPLE_VARIABILITY 0.2          # Allowed FWHM variability (1.0 = 100%)
-SAMPLE_MINSN       20           # Minimum S/N for a source to be used
-SAMPLE_MAXELLIP    0.3          # Maximum (A-B)/(A+B) for a source to be used
+SAMPLE_FWHMRANGE   3.0,5.0     # Allowed FWHM range
+SAMPLE_VARIABILITY 0.05          # Allowed FWHM variability (1.0 = 100%)
+SAMPLE_MINSN       250           # Minimum S/N for a source to be used
+SAMPLE_MAXELLIP    0.05          # Maximum (A-B)/(A+B) for a source to be used
 SAMPLE_FLAGMASK    0x00fe       # Rejection mask on SExtractor FLAGS
 SAMPLE_WFLAGMASK   0x0000       # Rejection mask on SExtractor FLAGS_WEIGHT
 SAMPLE_IMAFLAGMASK 0x0          # Rejection mask on SExtractor IMAFLAGS_ISO
@@ -58,8 +58,8 @@ HOMOKERNEL_SUFFIX  .homo.fits   # Filename extension for homogenisation kernels
 
 #----------------------------- Output catalogs -------------------------------
 
-OUTCAT_TYPE        NONE         # NONE, ASCII_HEAD, ASCII, FITS_LDAC
-OUTCAT_NAME        psfex_out.cat  # Output catalog filename
+OUTCAT_TYPE        FITS_LDAC         # NONE, ASCII_HEAD, ASCII, FITS_LDAC
+OUTCAT_NAME        psfTEST.cat  # Output catalog filename
 
 #------------------------------- Check-plots ----------------------------------
  
