@@ -11,7 +11,7 @@ PARAMETERS_NAME  pass1.param  # name of the file containing catalog contents
 #------------------------------- Extraction ----------------------------------
  
 DETECT_TYPE      CCD            # CCD (linear) or PHOTO (with gamma correction)
-DETECT_MINAREA   5              # min. # of pixels above threshold
+DETECT_MINAREA   10              # min. # of pixels above threshold
 DETECT_MAXAREA   0              # max. # of pixels above threshold (0=unlimited)
 THRESH_TYPE      RELATIVE       # threshold type: RELATIVE (in sigmas)
                                 # or ABSOLUTE (in ADUs)
@@ -19,7 +19,7 @@ DETECT_THRESH    1.5            # <sigmas> or <threshold>,<ZP> in mag.arcsec-2
 ANALYSIS_THRESH  1.5            # <sigmas> or <threshold>,<ZP> in mag.arcsec-2
  
 FILTER           Y              # apply filter for detection (Y or N)?
-FILTER_NAME      /usr/share/sextractor/gauss_2.0_5x5.conv   # name of the file containing the filter
+FILTER_NAME      /usr/share/sextractor/gauss_4.0_7x7.conv   # name of the file containing the filter
 FILTER_THRESH                   # Threshold[s] for retina filtering
  
 DEBLEND_NTHRESH  32             # Number of deblending sub-thresholds
@@ -48,7 +48,7 @@ FLAG_TYPE        OR             # flag pixel combination: OR, AND, MIN, MAX
 
 #------------------------------ Photometry -----------------------------------
  
-PHOT_APERTURES 	 1.5,3.0,4.0,8.0,16.0,30.0               # MAG_APER aperture diameter(s) in pixels
+PHOT_APERTURES 	 APERPHOT               # MAG_APER aperture diameter(s) in pixels
 PHOT_AUTOPARAMS  2.5, 3.5       # MAG_AUTO parameters: <Kron_fact>,<min_radius>
 PHOT_PETROPARAMS 2.0, 3.5       # MAG_PETRO parameters: <Petrosian_fact>,
                                 # <min_radius>
@@ -67,7 +67,7 @@ PIXEL_SCALE      0.2            # size of pixel in arcsec (0=use FITS WCS info)
  
 #------------------------- Star/Galaxy Separation ----------------------------
  
-SEEING_FWHM      1.2            # stellar FWHM in arcsec
+SEEING_FWHM      FWHMARC            # stellar FWHM in arcsec
 STARNNW_NAME     default.nnw    # Neural-Network_Weight table filename
  
 #------------------------------ Background -----------------------------------
@@ -77,8 +77,8 @@ BACK_VALUE       0.0            # Default background value in MANUAL mode
 BACK_SIZE        64             # Background mesh: <size> or <width>,<height>
 BACK_FILTERSIZE  3              # Background filter: <size> or <width>,<height>
  
-BACKPHOTO_TYPE   GLOBAL         # can be GLOBAL or LOCAL
-BACKPHOTO_THICK  24             # thickness of the background LOCAL annulus
+BACKPHOTO_TYPE   LOCAL         # can be GLOBAL or LOCAL
+BACKPHOTO_THICK  256             # thickness of the background LOCAL annulus
 BACK_FILTTHRESH  0.0            # Threshold above which the background-
                                 # map filter operates
  
