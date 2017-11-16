@@ -49,10 +49,10 @@ FLAG_TYPE        OR             # flag pixel combination: OR, AND, MIN, MAX
 #------------------------------ Photometry -----------------------------------
  
 PHOT_APERTURES 	 APERPHOT               # MAG_APER aperture diameter(s) in pixels
-PHOT_AUTOPARAMS  1.5, 2.0       # MAG_AUTO parameters: <Kron_fact>,<min_radius>
+PHOT_AUTOPARAMS  2.5, 3.5       # MAG_AUTO parameters: <Kron_fact>,<min_radius>
 PHOT_PETROPARAMS 2.0, 3.5       # MAG_PETRO parameters: <Petrosian_fact>,
                                 # <min_radius>
-PHOT_AUTOAPERS   6.0,15.0       # <estimation>,<measurement> minimum apertures
+PHOT_AUTOAPERS   0.0,0.0       # <estimation>,<measurement> minimum apertures
                                 # for MAG_AUTO and MAG_PETRO
 PHOT_FLUXFRAC    0.5            # flux fraction[s] used for FLUX_RADIUS
  

@@ -4,7 +4,7 @@
  
 #-------------------------------- Catalog ------------------------------------
  
-CATALOG_NAME     pass1.cat       # name of the output catalog
+CATALOG_NAME     TEST.cat       # name of the output catalog
 CATALOG_TYPE     FITS_LDAC     # NONE,ASCII,ASCII_HEAD, ASCII_SKYCAT, # ASCII_VOTABLE, FITS_1.0 or FITS_LDAC 
 PARAMETERS_NAME  pass1.param  # name of the file containing catalog contents
  
@@ -74,11 +74,11 @@ STARNNW_NAME     default.nnw    # Neural-Network_Weight table filename
  
 BACK_TYPE        AUTO           # AUTO or MANUAL
 BACK_VALUE       0.0            # Default background value in MANUAL mode
-BACK_SIZE        64             # Background mesh: <size> or <width>,<height>
+BACK_SIZE        256             # Background mesh: <size> or <width>,<height>
 BACK_FILTERSIZE  3              # Background filter: <size> or <width>,<height>
  
 BACKPHOTO_TYPE   LOCAL         # can be GLOBAL or LOCAL
-BACKPHOTO_THICK  256             # thickness of the background LOCAL annulus
+BACKPHOTO_THICK  24             # thickness of the background LOCAL annulus
 BACK_FILTTHRESH  0.0            # Threshold above which the background-
                                 # map filter operates
  

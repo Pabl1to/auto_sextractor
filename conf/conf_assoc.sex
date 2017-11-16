@@ -36,7 +36,7 @@ MASK_TYPE        CORRECT        # type of detection MASKing: can be one of
 WEIGHT_TYPE      WNONE           # type of WEIGHTing: NONE, BACKGROUND,
                                 # MAP_RMS, MAP_VAR or MAP_WEIGHT
 RESCALE_WEIGHTS  Y              # Rescale input weights/variances (Y/N)?
-WEIGHT_IMAGE     ../IMGDIR/NWIMAGE1 , ../IMGDIR/NWIMAGE2  # weight-map filename
+WEIGHT_IMAGE     ../IMGDIR/NWIMAGE1  # weight-map filename
 WEIGHT_GAIN      Y              # modulate gain (E/ADU) with weights? (Y/N)
 WEIGHT_THRESH                   # weight threshold[s] for bad pixels
 
@@ -48,11 +48,11 @@ FLAG_TYPE        OR             # flag pixel combination: OR, AND, MIN, MAX
 
 #------------------------------ Photometry -----------------------------------
  
-PHOT_APERTURES 	 15.0               # MAG_APER aperture diameter(s) in pixels
-PHOT_AUTOPARAMS  1.5, 2.0       # MAG_AUTO parameters: <Kron_fact>,<min_radius>
-PHOT_PETROPARAMS 2.5, 3.5       # MAG_PETRO parameters: <Petrosian_fact>,
+PHOT_APERTURES 	 APERPHOT               # MAG_APER aperture diameter(s) in pixels
+PHOT_AUTOPARAMS  2.5, 3.5       # MAG_AUTO parameters: <Kron_fact>,<min_radius>
+PHOT_PETROPARAMS 2.0, 3.5       # MAG_PETRO parameters: <Petrosian_fact>,
                                 # <min_radius>
-PHOT_AUTOAPERS   6.0,15.0       # <estimation>,<measurement> minimum apertures
+PHOT_AUTOAPERS   0.0,0.0       # <estimation>,<measurement> minimum apertures
                                 # for MAG_AUTO and MAG_PETRO
 PHOT_FLUXFRAC    0.5            # flux fraction[s] used for FLUX_RADIUS
  
@@ -67,7 +67,7 @@ PIXEL_SCALE      0.2            # size of pixel in arcsec (0=use FITS WCS info)
  
 #------------------------- Star/Galaxy Separation ----------------------------
  
-SEEING_FWHM      1.2            # stellar FWHM in arcsec
+SEEING_FWHM      FWHMARC            # stellar FWHM in arcsec
 STARNNW_NAME     /usr/share/sextractor/default.nnw    # Neural-Network_Weight table filename
  
 #------------------------------ Background -----------------------------------
@@ -100,7 +100,7 @@ MEMORY_BUFSIZE   1024           # number of lines in buffer
 
 ASSOC_NAME       ../Results/BASECAT      # name of the ASCII file to ASSOCiate
 ASSOC_DATA       NONE          # columns of the data to replicate (0=all)
-ASSOC_PARAMS     3,4,5          # columns of xpos,ypos[,mag]
+ASSOC_PARAMS     1,2,12          # columns of xpos,ypos[,mag]
 ASSOCCOORD_TYPE  PIXEL          # ASSOC coordinates: PIXEL or WORLD
 ASSOC_RADIUS     2.0            # cross-matching radius (pixels)
 ASSOC_TYPE       NEAREST        # ASSOCiation method: FIRST, NEAREST, MEAN,
@@ -126,6 +126,6 @@ INTERP_TYPE      ALL            # Interpolation type: NONE, VAR_ONLY or ALL
 
 PSF_NAME       	 ../Results/NPSF.psf           # File containing the PSF model
 PSF_NMAX         1              # Max.number of PSFs fitted simultaneously
-PATTERN_TYPE     RINGS-HARMONIC # can RINGS-QUADPOLE, RINGS-OCTOPOLE,
+PATTERN_TYPE     GAUSS-LAGUERRE # can RINGS-QUADPOLE, RINGS-OCTOPOLE,
                                 # RINGS-HARMONICS or GAUSS-LAGUERRE
 SOM_NAME         default.som    # File containing Self-Organizing Map weights

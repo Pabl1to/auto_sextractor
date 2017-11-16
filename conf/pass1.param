@@ -1,4 +1,3 @@
-
 X_IMAGE                 # Object position along x                                   [pixel]
 Y_IMAGE                 # Object position along y                                   [pixel]
 FLUX_RADIUS             # Fraction-of-light radii                                   [pixel]

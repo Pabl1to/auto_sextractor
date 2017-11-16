@@ -4,7 +4,7 @@ def main_directory():
 	cdirec = os.getcwd()
 	while True:
 		c = 0
-		mdirec = raw_input("Enter the main directory (enter or '.' for current directory): ")
+		mdirec = raw_input("Insert the main directory (enter or '.' for current directory): ")
 		if mdirec == "": mdirec = cdirec
 		try:
 			f = os.listdir(mdirec)
@@ -58,7 +58,7 @@ def directories(direc):
         print "*"*10 + "files in the main directory "+"*"*10
         for i in f: print i
 	while True:
-		dimages = raw_input("Insert images directory: ")
+		dimages = raw_input("Insert image directory: ")
 		if in_main(dimages) == True:
 			if inspec(dimages,"fits","yes") == True: break
 			else: pass
@@ -76,7 +76,7 @@ def rimage(dimages):
 	while True:
 		x = 0
 		images = os.listdir(dimages)
-		tosepar = raw_input("Insert images to run sextractor ('*' for every images)(enter to stop): ")
+		tosepar = raw_input("Input images ('*' for every images): ")
 		if tosepar == "*": 
 			for i in images:
 				if i[-4:] == "fits": im = im + [i]
@@ -115,7 +115,7 @@ def rel_img_wmap(img,wim):
 	import numpy as np
 	import pyfits as pf
 	wsort = np.zeros(len(img))
-	wsort = list(wsort.astype("str"))
+        wsort = list(wsort.astype("str"))
 
 	for i in range(len(img)):
 		im = pf.open(img[i])
@@ -155,12 +155,13 @@ def rel_img_wmap(img,wim):
 					wsort[i] = cand1
 				else: print cand1+" isn't a candidate."
 	return wsort 
+
 def header_param(img):
 	import pyfits as pf
 	t,gain,seeng,s_img = [],[],[],[]
 	for i in range(len(img)):
 		im = pf.open(img[i])
-		t,gain,seeng = t + [im[0].header["EXPTIME"]], gain + [im[0].header["GAIN"]], seeng + [im[0].header["FWHM"]], s_img + [im[0].header["FWHF_IMG"]]
+		t,gain,seeng,s_img = t + [im[0].header["EXPTIME"]], gain + [im[0].header["GAIN"]], seeng + [im[0].header["FWHM"]], s_img + [im[0].header["FWHM_IMG"]]
 	return [t,gain,seeng,s_img]
 def f_in_img(nimg,nfilter):
 	a = "p"
@@ -194,21 +195,7 @@ def sort_wmap(img,wim,x):
 		return wmap_sort
 	else: return []
 
-def read_zp(img):
-	
-    c = 0
-    zps = []
-    for i in img:
-        while True:
-            zp = raw_input("Insert zero-point magnitude for "+i+" image: ")
-            try:
-                zps = zps + [float(zp)]
-                c = c + 1
-                break
-            except ValueError: print "ERROR: Zero-point magnitude has to be a number"
-    return zps
-
-def running(direc,img,hparam,wim,zps,nbase,x):
+def running(direc,img,hparam,wim,zps,x):
 	import os
 	import numpy as np
 	os.system("mkdir -p Results")
@@ -232,6 +219,7 @@ def running(direc,img,hparam,wim,zps,nbase,x):
 			os.system("sed 's/WNONE/NONE/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex") 
 		os.system("sed 's/NGAIN/"+str(hparam[1][i])+"/' pass1.sex > tpass1.sex; mv tpass1.sex pass1.sex") 
 		os.system("sed 's/TEST/"+img[i][:-5]+"/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex") 
+		os.system("sed 's/TEST/"+img[i][:-5]+"/' pass1.sex > tpass1.sex; mv tpass1.sex pass1.sex") 
 		os.system("sed 's/ZP/"+str(2.5*np.log10(hparam[0][i])+zps[0][i])+"/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex") 
 		os.system("sed 's/NGAIN/"+str(hparam[1][i])+"/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex")
 		os.system("sed 's/FWHMARC/"+str(hparam[2][i])+"/' pass1.sex > tpass1.sex; mv tpass1.sex pass1.sex")
@@ -245,10 +233,8 @@ def running(direc,img,hparam,wim,zps,nbase,x):
 		        
 		os.system("sex -c pass1.sex ../"+direc[0]+"/"+img[i])
 		os.system("sed 's/TEST/"+img[i][:-5]+"/' psfconf.c > tpsf.c; mv tpsf.c psfconf.c") 
-	        os.system("psfex -c psfconf.c pass1.cat")
-	        os.system("mv pass1.psf "+img[i][:-5]+".psf")	
+	        os.system("psfex -c psfconf.c "+img[i][:-5]+".cat")
 		os.system("sed 's/NPSF/"+img[i][:-5]+"/' pass2.sex > tpass2.sex; mv tpass2.sex pass2.sex")
-		os.system("sex -c pass2.sex ../"+direc[0]+"/"+img[i])
 	os.chdir("..")
 
 def nbase(nzps,nbase):
@@ -276,10 +262,8 @@ def assoc(direc,img,hparam,wim,zps,nbase):
 			if len(wim) != 0:
 				if wim[i] !=  "NOIMAGE":
 					os.system("sed 's/WNONE/MAP_WEIGHT/' conf_assoc.sex > tc.sex; mv tc.sex conf_assoc.sex")
-					os.system("sed 's/NWIMAGE1/"+wim[base]+"/' conf_assoc.sex > tc.sex; mv tc.sex conf_assoc.sex")
+					os.system("sed 's/NWIMAGE1/"+wim[i]+"/' conf_assoc.sex > tc.sex; mv tc.sex conf_assoc.sex")
 					os.system("sed 's/IMGDIR/"+direc[0]+"/' conf_assoc.sex > tc.sex; mv tc.sex conf_assoc.sex")
-					os.system("sed 's/IMGDIR/"+direc[0]+"/' conf_assoc.sex > tc.sex; mv tc.sex conf_assoc.sex")
-					os.system("sed 's/NWIMAGE2/"+wim[i]+"/' conf_assoc.sex > tc.sex; mv tc.sex conf_assoc.sex")
 				else: 
 					os.system("sed 's/WNONE/NONE/' conf_assoc.sex > tc.sex; mv tc.sex conf_assoc.sex")
 			else: 
@@ -293,112 +277,6 @@ def assoc(direc,img,hparam,wim,zps,nbase):
 			os.system("sed 's/FWHMARC/"+str(hparam[2][i])+"/' conf_assoc.sex > t2.sex; mv t2.sex conf_assoc.sex")
 			os.system("sed 's/APERPHOT/"+str(3*float(hparam[3][i]))+"/' conf_assoc.sex > t2.sex; mv t2.sex conf_assoc.sex")
 			os.system("sed 's/NPSF/"+img[i][:-5]+"/' conf_assoc.sex > t2.sex; mv t2.sex conf_assoc.sex")
-			if i != x: os.system("sex -c conf_assoc.sex ../"+direc[0]+"/"+img[base]+",../"+direc[0]+"/"+img[i])
+			os.system("sex -c conf_assoc.sex ../"+direc[0]+"/"+img[base]+",../"+direc[0]+"/"+img[i])
 	return True
 	
-#def match(img,nzp):
-	#for i in range(len(nzp)):
-		
-	
-	
-	
-			
-def grafs_sep(catalog):
-	import os
-	import numpy as np
-	import matplotlib.pyplot as plt
-	os.system("mkdir -p "+catalog[:-4]+"_plots")
-    
-	cat = np.loadtxt(catalog)
-	mkron,smodel,mu_max,flux_rad = cat[:,0],cat[:,9],cat[:,6],cat[:,8]
-   	plt.figure() 
-   	plt.scatter(mkron,smodel*10**2, s=0.5)
-   	plt.xlabel(r"$magnitude_{kron} \ [mag]$")
-   	plt.xlim(15,26)
-   	plt.ylim(-1,5)
-   	plt.ylabel(r"$[Spread \ Model]x10^{2}$")
-   	plt.savefig("smodel_"+catalog[:-4])
-   	os.system("mv smodel_"+catalog[:-4]+".png "+catalog[:-4]+"_plots")
-    
-   	plt.figure()
-   	plt.scatter(mkron,mu_max, s=0.5)
-   	plt.xlabel(r"$magnitude_{kron} \ [mag]$")
-   	plt.xlim(15,26)
-   	plt.ylim(15,26)
-   	plt.ylabel(r"$\mu_{max}$")
-   	plt.savefig("mumax_"+catalog[:-4])
-   	os.system("mv mumax_"+catalog[:-4]+".png "+catalog[:-4]+"_plots")
-   
-   	plt.figure()
-   	plt.scatter(mkron,flux_rad, s=0.5)
-   	plt.xlim(15,26)
-   	plt.ylim(1,20)
-   	plt.xlabel(r"$magnitude_{kron} \ [mag]$")
-   	plt.ylabel(r"$Half \ Flux \ Radius \ [pix]$")
-   	plt.savefig("fluxrad_"+catalog[:-4])
-   	os.system("mv fluxrad_"+catalog[:-4]+".png "+catalog[:-4]+"_plots")
-   
-   	os.chdir("..")
-   	os.system("shotwell results_1/"+catalog[:-4]+"_plots/* &")
-
-def graf_sim(images):
-	import os
-	import numpy as np
-	import matplotlib.pyplot as plt
-	os.system("mkdir -p sgsplots")
-	for i in images:
-		cat = np.loadtxt(i[:-5]+".cat")
-		mkron,smodel,mu_max,flux_rad = cat[:,0],cat[:,7],cat[:,4],cat[:,6]
-	plt.scatter(mkron,flux_rad, s=0.5)
-	plt.xlim(15,26)
-	plt.ylim(1,20)
-	plt.xlabel(r"$magnitude_{kron} \ [mag]$")
-	plt.ylabel(r"$Half \ Flux \ Radius \ [pixel]$")
-	plt.savefig("flux_rad")
-	os.system("mv flux_rad.png sgsplots")
-	plt.figure()
-	for i in images:
-		cat = np.loadtxt(i[:-5]+".cat")
-		mkron,smodel,mu_max,flux_rad = cat[:,0],cat[:,7],cat[:,4],cat[:,6]
-		plt.scatter(mkron,smodel*10**2, s=0.5)
-		plt.xlim(15,26)
-		plt.ylim(-1,5)
-		plt.xlabel(r"$magnitude_{kron} \ [mag]$")
-		plt.ylabel(r"$Spread \ Model [x10^{2}] $")
-	plt.savefig("smodel")
-	os.system("mv smodel.png sgsplots")
-	plt.figure()
-	for i in images:
-		cat = np.loadtxt(i[:-5]+".cat")
-		mkron,smodel,mu_max,flux_rad = cat[:,0],cat[:,7],cat[:,4],cat[:,6]
-		plt.scatter(mkron,mu_max, s=0.5)
-	plt.xlim(15,26)
-	plt.ylim(15,26)
-	plt.xlabel(r"$magnitude_{kron} \ [mag]$")
-	plt.ylabel(r"$\mu_{max} $")
-	plt.savefig("mu_max")
-	os.system("mv mu_max.png sgsplots")
-	os.system("shotwell sgsplots/*.png &")
-	os.chdir("..")
-
-#mdirec = main_directory()
-#direcs = directories()
-#img = rimage(direcs[0])
-#if len(img) == 0: pass
-#else:
-#    	os.chdir(direcs[0])
-#    	rimg,wimg,o = have_weight_map(img)
-#    	if o == True:
-     		#wimg = rel_img_wmap(rimg,wimg)
-#		wimg = sort_wmap(rimg,wimg,[11,18])
-#    	else: print "You don't have weighting maps"
-#    	hparam = header_param(rimg)
-#	print hparam
-#    	os.chdir("..")
-#	zp = np.loadtxt("zps",dtype="str")
-#	zps = sort_zp(rimg,zp,[11,18]) 
-#	running(direcs,rimg,hparam,wimg,zps,"Sloan_r")
-#	assoc(direcs,rimg,hparam,wimg,zps,"Sloan_r")
-#    	for i in range(len(rimg)):
-#        	grafs_sep(rimg[i][:-5]+".cat")
-

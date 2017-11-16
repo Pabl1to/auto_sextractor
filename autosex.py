@@ -23,9 +23,13 @@ else:
 			else: pass
 			hparam = header_param(rimg)
 			zps = sort_zp(rimg,zps,x)
+                        #print "*"*30
+                        #print "Image Name" + "\t"+"Exptime"+"\t"+"Gain"+"\t"+"Seeing_FWHM [arcsec]"+"\t"+"Seeing_FWHM [pixel]"+"\t"+"Optimal photaper" 
+                        #for i in range(len(rimg)):
+                        #    print rimg[i]+"\t"+hparam[0                            
 			os.chdir("..")
-			running(direcs,rimg,hparam,wimg,zps,"Sloan_i",x)	
-#			assoc(direcs,rimg,hparam,wimg,zps,"Sloan_i")
+			running(direcs,rimg,hparam,wimg,zps,x)	
+			#assoc(direcs,rimg,hparam,wimg,zps,"Sloan_i")
 	else: print "I can't run... bye"	
 		
 			

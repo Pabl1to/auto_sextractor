@@ -28,16 +28,15 @@ PHOTFLUXERR_KEY FLUXERR_APER(1) # Catalogue parameter for photometric error
  
 PSFVAR_KEYS     X_IMAGE,Y_IMAGE # Catalogue or FITS (preceded by :) params
 PSFVAR_GROUPS   1,1             # Group tag for each context key
-PSFVAR_DEGREES  2               # Polynom degree for each group
+PSFVAR_DEGREES  3               # Polynom degree for each group
 PSFVAR_NSNAP    9               # Number of PSF snapshots per axis
 HIDDENMEF_TYPE  COMMON          # INDEPENDENT or COMMON
 STABILITY_TYPE  EXPOSURE        # EXPOSURE or SEQUENCE
  
 #----------------------------- Sample selection ------------------------------
  
-SAMPLE_AUTOSELECT  Y            # Automatically select the FWHM (Y/N) ?
-SAMPLEVAR_TYPE     SEEING       # File-to-file PSF variability: NONE or SEEING
-SAMPLE_FWHMRANGE   3.0,5.0     # Allowed FWHM range
+SAMPLE_AUTOSELECT  Y           # Automatically select the FWHM (Y/N) ?
+SAMPLE_FWHMRANGE   3.0,6.5     # Allowed FWHM range
 SAMPLE_VARIABILITY 0.05          # Allowed FWHM variability (1.0 = 100%)
 SAMPLE_MINSN       250           # Minimum S/N for a source to be used
 SAMPLE_MAXELLIP    0.05          # Maximum (A-B)/(A+B) for a source to be used
@@ -63,7 +62,7 @@ OUTCAT_NAME        psfTEST.cat  # Output catalog filename
 
 #------------------------------- Check-plots ----------------------------------
  
-CHECKPLOT_DEV       PS         # NULL, XWIN, TK, PS, PSC, XFIG, PNG,
+CHECKPLOT_DEV       PNG         # NULL, XWIN, TK, PS, PSC, XFIG, PNG,
                                 # JPEG, AQT, PDF or SVG
 CHECKPLOT_RES       0           # Check-plot resolution (0 = default)
 CHECKPLOT_ANTIALIAS Y           # Anti-aliasing using convert (Y/N) ?
