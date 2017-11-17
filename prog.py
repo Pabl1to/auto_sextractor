@@ -111,51 +111,6 @@ def have_weight_map(img):
 	else: o = True
 	return [rimg,wim,o]
 
-def rel_img_wmap(img,wim):
-	import numpy as np
-	import pyfits as pf
-	wsort = np.zeros(len(img))
-        wsort = list(wsort.astype("str"))
-
-	for i in range(len(img)):
-		im = pf.open(img[i])
-		imx,imy = im[0].header["NAXIS1"],im[0].header["NAXIS2"]
-		cand = []
-		for j in wim:
-			w = pf.open(j)
-			wx,wy = w[0].header["NAXIS1"],w[0].header["NAXIS2"]
-			if wx - imx == 0 and wy - imy == 0:
-				cand = cand + [j]
-
-		for p in range(len(wsort)):
-			cond = np.array(cand) == wsort[p]
-			c = np.where(cond == True)
-			if len(c[0]) != 0:
-				cand.remove(cand[int(c[0])])
-			else: pass
-
-		if len(cand) == 0: 
-			print "Not found weight-map for "+img[i]+" image "
-			wsort[i] = "NOIMAGE"
-		elif len(cand) == 1:
-			wsort[i] = cand[0]
-		else:
-			 
-			x = 0
-			while x != 1:
-				print "*"*30
-				print "I found "+str(len(cand))+" candidates for "+img[i]+" weight-map"
-				print "They are: "
-				for k in cand: print k
-				cand1 = raw_input("Please, give me the weight-map name: ")
-				for j in cand:
-					if cand1 == j: 
-						x = 1
-				if x == 1: 
-					wsort[i] = cand1
-				else: print cand1+" isn't a candidate."
-	return wsort 
-
 def header_param(img):
 	import pyfits as pf
 	t,gain,seeng,s_img = [],[],[],[]
